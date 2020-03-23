@@ -12,6 +12,7 @@ abstract class Reader(seed: Int) {
     abstract val name: String
     abstract val hashSize: Int
     private val random = Random(seed)
+    var values = Values()
     var status: Status = Status(false)
 
     fun start(): Boolean {
