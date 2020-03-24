@@ -88,7 +88,7 @@ abstract class Reader(seed: Int) {
         val (ID, privateKey) = dbSearch(tB, cpI, values.N_A, values.N_B) ?: return tagNotFound()
 
         // R computation
-        val a = f_x(privateKey, Values.join(arrayOf(Values.C_B, values.N_B)))
+        val a = f_x(privateKey, Values.join(Values.C_B, values.N_B))
         values.computeR(a, privateKey)
         log("R0 :\t${prettyPrint(values.R0)}")
         log("R1 :\t${prettyPrint(values.R1)}")

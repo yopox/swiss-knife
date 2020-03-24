@@ -31,7 +31,7 @@ class LHReader(seed: Int) : Reader(seed) {
 
     override fun dbSearch(tB: BitSet, cpI: BitSet, nA: BitSet, nB: BitSet): Pair<BitSet, BitSet>? {
         for ((id, private) in db)
-            if (f_x(private, Values.join(arrayOf(cpI, id, nA, nB))) == tB)
+            if (f_x(private, Values.join(cpI, id, nA, nB)) == tB)
                 return id to private
         return null
     }
@@ -42,7 +42,7 @@ class LHReader(seed: Int) : Reader(seed) {
 
     override fun genNA(): BitSet = sha256(easyBitSet("11010001"))
 
-    override fun f_x(private: BitSet, b: BitSet) = sha256(Values.join(arrayOf(b, private)))
+    override fun f_x(private: BitSet, b: BitSet) = sha256(Values.join(sha256(Values.join(b, private)), private))
 
     override fun accept(ID: BitSet) {
     }
@@ -76,7 +76,6 @@ class LHReader(seed: Int) : Reader(seed) {
 
     override fun send3(value: BitSet) {
         writer.writeObject(value)
-
         socket.close()
     }
 }

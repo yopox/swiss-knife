@@ -17,7 +17,7 @@ class Values {
         // Maximum reception length allowed
         val tMax = 10.0.pow(9)
 
-        fun join(bitsets: Array<BitSet>): BitSet {
+        fun join(vararg bitsets: BitSet): BitSet {
             var b1 = BitSet()
             for (b in bitsets) {
                 // New BitSet of the correct size

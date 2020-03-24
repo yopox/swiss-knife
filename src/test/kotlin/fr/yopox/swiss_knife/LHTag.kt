@@ -24,7 +24,7 @@ class LHTag() : Tag() {
 
     override fun genNB(): BitSet = sha256(easyBitSet("11011001"))
 
-    override fun f_x(private: BitSet, b: BitSet): BitSet = sha256(Values.join(arrayOf(b, private)))
+    override fun f_x(private: BitSet, b: BitSet): BitSet = sha256(Values.join(sha256(Values.join(b, private)), private))
 
     override fun receive1(): Pair<BitSet, BitSet> {
         return reader.readObject() as Pair<BitSet, BitSet>

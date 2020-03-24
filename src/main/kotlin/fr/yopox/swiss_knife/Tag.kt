@@ -29,7 +29,7 @@ abstract class Tag {
         log("N_B :\t${Values.bitSetToStr(values.N_B)}")
 
         // a computation
-        val a = f_x(privateKey, Values.join(arrayOf(Values.C_B, values.N_B)))
+        val a = f_x(privateKey, Values.join(Values.C_B, values.N_B))
         log("a :\t${Values.bitSetToStr(a)}")
 
         // R computation
@@ -68,7 +68,7 @@ abstract class Tag {
         log("Starting end phase.")
 
         // tB computation
-        val tB = f_x(privateKey, Values.join(arrayOf(values.c1, ID, values.N_A, values.N_B)))
+        val tB = f_x(privateKey, Values.join(values.c1, ID, values.N_A, values.N_B))
         send3(Pair(tB, values.c1))
 
         // Receive tA
