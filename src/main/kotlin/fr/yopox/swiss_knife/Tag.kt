@@ -45,8 +45,6 @@ abstract class Tag {
     private fun rapidPhase() {
         log("Starting rapid phase.")
 
-        // TODO: 1 Fake exchange ([send2] is slower the first time it is called ???)
-
         for (i in 0 until Values.m) {
 
             sync2()
