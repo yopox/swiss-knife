@@ -1,6 +1,6 @@
 package fr.yopox.swiss_knife
 
-import fr.yopox.swiss_knife.Values.Companion.easyBitSet
+import fr.yopox.swiss_knife.Values.Companion.toBitSet
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.net.ServerSocket
@@ -13,8 +13,8 @@ class LHReader(seed: Int) : Reader(seed) {
     override val hashSize = 256
 
     private val db = arrayOf(
-            easyBitSet("001") to sha256(easyBitSet("1101")),
-            easyBitSet("111") to sha256(easyBitSet("1010"))
+            "001".toBitSet() to sha256("1101".toBitSet()),
+            "111".toBitSet() to sha256("1010".toBitSet())
     )
 
     private val socket: Socket
@@ -40,7 +40,7 @@ class LHReader(seed: Int) : Reader(seed) {
 
     }
 
-    override fun genNA(): BitSet = sha256(easyBitSet("11010001"))
+    override fun genNA(): BitSet = sha256("11010001".toBitSet())
 
     override fun f_x(private: BitSet, b: BitSet) = sha256(Values.join(sha256(Values.join(b, private)), private))
 

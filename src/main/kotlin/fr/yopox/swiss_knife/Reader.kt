@@ -1,6 +1,7 @@
 package fr.yopox.swiss_knife
 
-import fr.yopox.swiss_knife.Values.Companion.prettyPrint
+import fr.yopox.swiss_knife.Values.Companion.fullString
+import fr.yopox.swiss_knife.Values.Companion.usefulString
 import java.util.*
 import kotlin.math.pow
 import kotlin.random.Random
@@ -28,7 +29,7 @@ abstract class Reader(seed: Int) {
 
         // N_A computation
         values.N_A = genNA()
-        log("N_A : ${Values.bitSetToStr(values.N_A)}")
+        log("N_A : ${values.N_A.fullString}")
 
         // m random positions
         var s: Set<Int> = setOf()
@@ -36,7 +37,7 @@ abstract class Reader(seed: Int) {
             s = s.plus(random.nextInt(hashSize))
         values.d = BitSet(hashSize)
         s.forEach { values.d.set(it) }
-        log("d : ${Values.bitSetToStr(values.d)}")
+        log("d : ${values.d.fullString}")
 
         // Send N_A and d
         log("Sending (N_A, d)")
@@ -44,7 +45,7 @@ abstract class Reader(seed: Int) {
 
         // Receive N_B
         values.N_B = receive1()
-        log("Received ${Values.bitSetToStr(values.N_B)}")
+        log("Received ${values.N_B.fullString}")
     }
 
     private inline fun <R> measure(block: () -> R): Pair<R, Long> {
@@ -90,11 +91,11 @@ abstract class Reader(seed: Int) {
         // R computation
         val a = f_x(privateKey, Values.join(Values.C_B, values.N_B))
         values.computeR(a, privateKey)
-        log("R0 :\t${prettyPrint(values.R0)}")
-        log("R1 :\t${prettyPrint(values.R1)}")
-        log("C1 :\t${prettyPrint(values.c1)} (bits sent by the reader)")
-        log("C'i:\t${prettyPrint(cpI)} (bits received by the tag)")
-        log("C2 :\t${prettyPrint(values.c2)} (bits sent by the tag)")
+        log("R0 :\t${values.R0.usefulString}")
+        log("R1 :\t${values.R1.usefulString}")
+        log("C1 :\t${values.c1.usefulString} (bits sent by the reader)")
+        log("C'i:\t${cpI.usefulString} (bits received by the tag)")
+        log("C2 :\t${values.c2.usefulString} (bits sent by the tag)")
         // Errors computation
         var errors = 0
 

@@ -1,16 +1,15 @@
 package fr.yopox.swiss_knife
 
-import fr.yopox.swiss_knife.Values.Companion.easyBitSet
+import fr.yopox.swiss_knife.Values.Companion.toBitSet
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
-import java.net.ServerSocket
 import java.net.Socket
 import java.util.*
 
-class LHTag() : Tag() {
+class LHTag : Tag() {
     override val name = "[Tag]"
-    override val privateKey = sha256(easyBitSet("1010"))
-    override val ID = easyBitSet("111")
+    override val privateKey = sha256("1010".toBitSet())
+    override val ID = "111".toBitSet()
 
     private val socket: Socket
     private val writer: ObjectOutputStream
@@ -22,7 +21,7 @@ class LHTag() : Tag() {
         reader = ObjectInputStream(socket.getInputStream())
     }
 
-    override fun genNB(): BitSet = sha256(easyBitSet("11011001"))
+    override fun genNB(): BitSet = sha256("11011001".toBitSet())
 
     override fun f_x(private: BitSet, b: BitSet): BitSet = sha256(Values.join(sha256(Values.join(b, private)), private))
 

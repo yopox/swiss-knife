@@ -12,7 +12,7 @@ class Values {
         var speed = 300 // Rapid phase speed in m/s
 
         // System constant
-        val C_B = easyBitSet("1001010010010100")
+        val C_B = "1001010010010100".toBitSet()
 
         // Maximum reception length allowed
         val tMax = 10.0.pow(9)
@@ -35,25 +35,27 @@ class Values {
             return b1
         }
 
-        fun easyBitSet(s: String): BitSet {
-            val b = BitSet(s.length)
-            for (i in s.indices)
-                if (s[i] == '0')
-                    b.set(s.lastIndex - i + 1)
+        fun String.toBitSet(): BitSet {
+            val b = BitSet(length)
+            for (i in indices)
+                if (get(i) == '0')
+                    b.set(lastIndex - i + 1)
             return b
         }
 
-        fun bitSetToStr(b : BitSet): String {
-            var str = ""
-            for (bit in 0 until b.size()) {
-                str = if (b[bit]) "1$str" else "0$str"
+        val BitSet.fullString: String
+            get() {
+                var str = ""
+                for (bit in 0 until size()) {
+                    str = if (get(bit)) "1$str" else "0$str"
+                }
+                return str
             }
-            return str
-        }
 
-        fun prettyPrint(b : BitSet): String {
-            return bitSetToStr(b).takeLast(m).reversed()
-        }
+        val BitSet.usefulString: String
+            get() {
+                return this.fullString.takeLast(m).reversed()
+            }
     }
 
     // Slow phase
@@ -83,7 +85,7 @@ class Values {
         for (i in 0 until m) {
             if (Z0[j]) R0.set(i)
             if (Z1[j]) R1.set(i)
-            j = d.nextSetBit(j+1)
+            j = d.nextSetBit(j + 1)
         }
     }
 

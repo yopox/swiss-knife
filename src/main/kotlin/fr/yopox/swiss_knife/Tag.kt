@@ -1,5 +1,7 @@
 package fr.yopox.swiss_knife
 
+import fr.yopox.swiss_knife.Values.Companion.fullString
+import fr.yopox.swiss_knife.Values.Companion.usefulString
 import java.util.*
 
 abstract class Tag {
@@ -26,16 +28,16 @@ abstract class Tag {
 
         // N_B computation
         values.N_B = genNB()
-        log("N_B :\t${Values.bitSetToStr(values.N_B)}")
+        log("N_B :\t${values.N_B.fullString}")
 
         // a computation
         val a = f_x(privateKey, Values.join(Values.C_B, values.N_B))
-        log("a :\t${Values.bitSetToStr(a)}")
+        log("a :\t${a.fullString}")
 
         // R computation
         values.computeR(a, privateKey)
-        log("R0 :\t${Values.bitSetToStr(values.R0).takeLast(Values.m)}")
-        log("R1 :\t${Values.bitSetToStr(values.R1).takeLast(Values.m)}")
+        log("R0 :\t${values.R0.usefulString}")
+        log("R1 :\t${values.R1.usefulString}")
 
         // Send N_B
         log("Sending N_B")
